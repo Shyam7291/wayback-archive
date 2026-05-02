@@ -1,0 +1,24 @@
+name: Wayback Snapshot Automation
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'   # Runs once per month
+  workflow_dispatch:
+
+jobs:
+  save-to-wayback:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Save URLs to Wayback Machine
+        run: |
+          while read url; do
+            if [ -n "$url" ]; then
+              echo "Archiving $url"
+              curl -I "https://web.archive.org/save/$url"
+              sleep 15
+            fi
+          done < urls.txt
