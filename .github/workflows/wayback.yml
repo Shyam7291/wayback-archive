@@ -2,8 +2,9 @@ name: Wayback Snapshot Automation
 
 on:
   schedule:
-    - cron: '0 0 1 * *'   # Runs once per month
+    - cron: '0 0 */10 * *'
   workflow_dispatch:
+
 
 jobs:
   save-to-wayback:
